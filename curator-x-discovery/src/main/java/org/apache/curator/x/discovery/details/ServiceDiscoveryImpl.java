@@ -19,6 +19,7 @@
 
 package org.apache.curator.x.discovery.details;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
@@ -327,6 +328,11 @@ public class ServiceDiscoveryImpl<T> implements ServiceDiscovery<T>
         catch ( KeeperException.NoNodeException ignore )
         {
             // ignore
+        }
+        catch ( JsonParseException e)
+        {
+            // FIXME: 临时忽略JSON解析异常，解决dubbo2和3注册信息兼容问题
+            log.warn("Could not deserialize instance", e.getMessage());
         }
         return null;
     }

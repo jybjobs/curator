@@ -18,6 +18,7 @@
  */
 package org.apache.curator.x.discovery.details;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Function;
 import com.google.common.base.Preconditions;
@@ -34,6 +35,9 @@ import org.apache.curator.framework.recipes.cache.PathChildrenCacheListener;
 import org.apache.curator.utils.ZKPaths;
 import org.apache.curator.x.discovery.ServiceCache;
 import org.apache.curator.x.discovery.ServiceInstance;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ConcurrentMap;
@@ -45,6 +49,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class ServiceCacheImpl<T> implements ServiceCache<T>, PathChildrenCacheListener
 {
+    private final Logger log = LoggerFactory.getLogger(getClass());
     private final ListenerContainer<ServiceCacheListener>           listenerContainer = new ListenerContainer<ServiceCacheListener>();
     private final ServiceDiscoveryImpl<T>                           discovery;
     private final AtomicReference<State>                            state = new AtomicReference<State>(State.LATENT);
@@ -209,16 +214,20 @@ public class ServiceCacheImpl<T> implements ServiceCache<T>, PathChildrenCacheLi
 
     private void addInstance(ChildData childData, boolean onlyIfAbsent) throws Exception
     {
-        String                  instanceId = instanceIdFromData(childData);
-        ServiceInstance<T>      serviceInstance = discovery.getSerializer().deserialize(childData.getData());
-        if ( onlyIfAbsent )
+        try
         {
-            instances.putIfAbsent(instanceId, serviceInstance);
+            String instanceId = instanceIdFromData(childData);
+            ServiceInstance<T> serviceInstance = discovery.getSerializer().deserialize(childData.getData());
+            if (onlyIfAbsent) {
+                instances.putIfAbsent(instanceId, serviceInstance);
+            } else {
+                instances.put(instanceId, serviceInstance);
+            }
+            cache.clearDataBytes(childData.getPath(), childData.getStat().getVersion());
         }
-        else
+        catch (JsonParseException e)
         {
-            instances.put(instanceId, serviceInstance);
+            log.warn("Could not deserialize instance", e.getMessage());
         }
-        cache.clearDataBytes(childData.getPath(), childData.getStat().getVersion());
     }
 }

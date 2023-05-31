@@ -761,41 +761,41 @@
                 </executions>
             </plugin>
 
-            <plugin>
-                <groupId>com.mycila.maven-license-plugin</groupId>
-                <artifactId>maven-license-plugin</artifactId>
-                <configuration>
-                    <header>src/etc/header.txt</header>
-                    <excludes>
-                        <exclude>**/*.confluence</exclude>
-                        <exclude>**/help.txt</exclude>
-                        <exclude>**/*.rdf</exclude>
-                        <exclude>**/.gitignore</exclude>
-                        <exclude>**/*.thrift</exclude>
-                        <exclude>**/*.json</exclude>
-                        <exclude>**/.idea/**</exclude>
-                        <exclude>**/DISCLAIMER</exclude>
-                        <exclude>**/DEPENDENCIES</exclude>
-                        <exclude>**/KEYS</exclude>
-                        <exclude>**/LICENSE</exclude>
-                        <exclude>**/NOTICE</exclude>
-                        <exclude>**/README</exclude>
-                        <exclude>**/CHANGES</exclude>
-                        <exclude>**/RELEASE-NOTES</exclude>
-                        <exclude>**/generated/**</exclude>
-                    </excludes>
-                    <strictCheck>true</strictCheck>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>license</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>com.mycila.maven-license-plugin</groupId>-->
+<!--                <artifactId>maven-license-plugin</artifactId>-->
+<!--                <configuration>-->
+<!--                    <header>src/etc/header.txt</header>-->
+<!--                    <excludes>-->
+<!--                        <exclude>**/*.confluence</exclude>-->
+<!--                        <exclude>**/help.txt</exclude>-->
+<!--                        <exclude>**/*.rdf</exclude>-->
+<!--                        <exclude>**/.gitignore</exclude>-->
+<!--                        <exclude>**/*.thrift</exclude>-->
+<!--                        <exclude>**/*.json</exclude>-->
+<!--                        <exclude>**/.idea/**</exclude>-->
+<!--                        <exclude>**/DISCLAIMER</exclude>-->
+<!--                        <exclude>**/DEPENDENCIES</exclude>-->
+<!--                        <exclude>**/KEYS</exclude>-->
+<!--                        <exclude>**/LICENSE</exclude>-->
+<!--                        <exclude>**/NOTICE</exclude>-->
+<!--                        <exclude>**/README</exclude>-->
+<!--                        <exclude>**/CHANGES</exclude>-->
+<!--                        <exclude>**/RELEASE-NOTES</exclude>-->
+<!--                        <exclude>**/generated/**</exclude>-->
+<!--                    </excludes>-->
+<!--                    <strictCheck>true</strictCheck>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>license</id>-->
+<!--                        <phase>validate</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>check</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

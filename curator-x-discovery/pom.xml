@@ -28,7 +28,7 @@
     </parent>
 
     <artifactId>curator-x-discovery</artifactId>
-    <version>4.2.0</version>
+    <version>4.2.0_bugfix</version>
     <packaging>bundle</packaging>
 
     <name>Curator Service Discovery</name>
@@ -43,6 +43,27 @@
             org.apache.curator.x.discovery*;version="${project.version}";-noimport:=true
         </osgi.export.package>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-framework</artifactId>
+                <version>4.2.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-recipes</artifactId>
+                <version>4.2.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-client</artifactId>
+                <version>4.2.0</version>
+            </dependency>
+        </dependencies>
+
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -60,6 +81,7 @@
             <groupId>org.apache.curator</groupId>
             <artifactId>curator-test</artifactId>
             <scope>test</scope>
+            <version>4.2.0</version>
         </dependency>
 
         <dependency>
@@ -80,4 +102,17 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <distributionManagement>
+        <repository>
+            <id>Nexus</id>
+            <name>dubbo2tuscany</name>
+            <url>http://10.60.1.10:8282/repository/thirdparty/</url>
+        </repository>
+        <snapshotRepository>
+            <id>NexusSnapshot</id>
+            <name>dubboSnapshot</name>
+            <url>http://10.60.1.10:8282/repository/dubbo-snapshot/</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
